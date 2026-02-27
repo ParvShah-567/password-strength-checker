@@ -1,47 +1,54 @@
 function checkPasswordStrength() {
     const passwordInput = document.getElementById('password').value;
-    //const strength = document.getElementById('strength').value;
-    const strength = document.getElementById('strength');
-    const image = document.getElementById('67');
+    const strengthText = document.getElementById('strengthText');
 
-    let alphabet = /[a-zA-Z]/;
+    let upperCase = /[A-Z]/;
+    let lowerCase = /[a-z]/;
     let number = /[0-9]/;
     let specialCharacter = /[!@#$%^&*(),.?":{}|<>]/;
 
-    let score = 0;
+    let strength = 0;
 
-
-    if (passwordInput.length >= 8){
-        score++;
-    } 
-    else if (passwordInput.length >= 12){
-        score++;
-    } 
-    else if (alphabet.test(passwordInput)){
-        score++;
-    } 
-    else if (number.test(passwordInput)){
-        score++;
-    } 
-    else if (specialCharacter.test(passwordInput)){
-        score++;
-    } 
-    else if (specialCharacter.test(passwordInput)){
-        score++;
-    }
+    console.log("function called with password: + " + passwordInput);
 
     if (passwordInput.length === 0) {
-        strength.textContent = '';
-        strength.style.color = 'white';
-    } else if (score <= 2) {
-        strength.textContent = 'password strength: Weak';
-        strength.style.color = 'red';
-    } else if (score <= 4) {
-        strength.textContent = 'password strength: Medium';
-        strength.style.color = 'orange';
-    } else {
-        strength.textContent = 'password strength: Strong';
-        strength.style.color = 'lightgreen';
+        strengthText.style.color = "white";
+        strengthText.textContent = "Enter password";
+        return;  // stop the function here if password is empty
+    }
+
+    // Determine strength based on character types
+    if (lowerCase.test(passwordInput) && upperCase.test(passwordInput) && number.test(passwordInput) && specialCharacter.test(passwordInput) ) {
+        strength = 10;
+    } else if (lowerCase.test(passwordInput) && upperCase.test(passwordInput) && number.test(passwordInput) || specialCharacter.test(passwordInput)) {
+        strength = 3;
+    } else if (lowerCase.test(passwordInput) && upperCase.test(passwordInput) || number.test(passwordInput) && specialCharacter.test(passwordInput)) {
+        strength = 3;
+    } else if (lowerCase.test(passwordInput) && upperCase.test(passwordInput) || number.test(passwordInput) || specialCharacter.test(passwordInput)) {
+        strength = 3;
+    } else if (lowerCase.test(passwordInput) || upperCase.test(passwordInput) || number.test(passwordInput) || specialCharacter.test(passwordInput)) {
+        strength = 1;
+        strengthText.textContent = "include uppercase letters,numbers and special characters";
+    }
+
+    // Adjust strength based on length
+    if (passwordInput.length < 5) {
+        strength = 1;
+        strengthText.textContent = "Password is too short";
+    } else if (passwordInput.length >= 10) {
+        strength++;
+    }
+
+    // Display strength result
+    if (strength >= 11){
+        strengthText.style.color = "green";
+        strengthText.textContent = "Password is very strong";
+    } else if (strength >= 5){
+        strengthText.style.color = "orange";
+        strengthText.textContent = "Password is medium";
+    } else if (strength > 1){
+        strengthText.style.color = "red";
+        strengthText.textContent = "Password is weak";
     }
 }
 

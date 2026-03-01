@@ -35,14 +35,19 @@ function checkPasswordStrength() {
     if (passwordInput.length < 5) {
         strength = 1;
         strengthText.textContent = "Password is too short";
+    } else if (passwordInput.length >= 15) {
+        strength += 5;
     } else if (passwordInput.length >= 10) {
         strength++;
     }
 
     // Display strength result
-    if (strength >= 11){
+    if (strength >= 15){
         strengthText.style.color = "green";
         strengthText.textContent = "Password is very strong";
+    } else if (strength >= 11){
+        strengthText.style.color = "lightgreen";
+        strengthText.textContent = "Password is strong";
     } else if (strength >= 5){
         strengthText.style.color = "orange";
         strengthText.textContent = "Password is medium";

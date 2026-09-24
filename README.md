@@ -14,4 +14,4 @@ Regex validation
 - Real-time validation
 
 ## How to run
-Open 'http://127.0.0.1:5500/PasswordStrengthChecker.html' in a browser
+Open 'http://127.0.0.1:5500/coding/projects/PasswordStrengthChecker.html' in a browser
